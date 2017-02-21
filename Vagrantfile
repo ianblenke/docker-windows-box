@@ -9,6 +9,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box          = "windows_2016_docker_vmware"
   config.vm.communicator = "winrm"
 
+  config.vm.network "forwarded_port", guest: 22, host: 20022, protocol: "tcp", auto_correct: true
+  config.vm.network "forwarded_port", guest: 2376, host: 22376, protocol: "tcp", auto_correct: true
+
   ["vmware_fusion", "vmware_workstation"].each do |provider|
     config.vm.provider provider do |v, override|
       v.gui = true
@@ -53,6 +56,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "scripts/install-dockertools.ps1", privileged: false
   config.vm.provision "shell", path: "scripts/install-atom.ps1", privileged: false
   config.vm.provision "shell", path: "scripts/set-dns.ps1", privileged: false
+  config.vm.provision "shell", path: "scripts/openssh.ps1", privileged: false
   config.vm.provision "shell", path: "scripts/insert-ssh-key.ps1", privileged: false
   config.vm.provision "shell", path: "scripts/notify-environment-changes.ps1", privileged: false
   # config.vm.provision "shell", path: "scripts/install-posh-docker.ps1", privileged: false

@@ -2,5 +2,5 @@
 Push-Location Documents
 git clone https://github.com/samneirinck/posh-docker
 cd posh-docker
-. .\install.ps1
+Install-Module -Scope CurrentUser posh-docker
 Pop-Location
